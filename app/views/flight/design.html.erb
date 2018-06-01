@@ -1,0 +1,199 @@
+<style>
+    td {
+      font-family: "Arial"
+    }
+    #al {
+      font-family: "Times New Roman"
+    }
+    
+</style>
+
+<style> 
+div.a {
+    white-space: nowrap; 
+    width: 100px; 
+    overflow: hidden;
+    text-overflow:ellipsis;
+   
+}
+
+div.a:hover {
+    overflow: visible;
+}
+</style>
+
+
+
+
+<div class="table-responsive"> 
+    
+    <table class="table"  frame="box" style="width: 70%;" bgcolor="white">
+        <%  @header_info.each_with_index do |all,index| %> 
+                    <td>
+                        <table width="100%" border="0">
+                            <tr>
+                              <td style="width: 15%; font-size: 14px; padding-left: 5px;">Orign</td>
+                              <td style="width: 20%; font-size: 18px;"><b><font color="green">Hyderabad (<%= all['origin'] %>)</font></b></td>
+                            </tr>
+                            <tr>
+                              <td style="width: 15%; font-size: 14px; padding-left: 5px;">Destination</td>
+                              <td style="width: 20%; font-size: 18px;"><b><font color="green">Delhi (<%= all['destination'] %>)</font></b></td>
+                            </tr>
+                            <tr>
+                              <td style="width: 15%; font-size: 14px; padding-left: 5px;" >Date of Travel</td>
+                              <td style="width: 20%; font-size: 16px;"><b><%= all['dept_date'] %>,</b>Wednesday</td>
+                            </tr>
+                            <tr>
+                              <td style="width: 15%; font-size: 14px; padding-left: 5px;">Class of Travel</td>
+                              <td style="width: 20%; font-size: 14px;"><b><%= all['travel_class'] %></b></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table width="100%" border="0" >
+                         <tr>
+                             
+                             <td style="width: 25%; font-size: 14px; " align="right">
+                                 <%= image_tag "logo.jpg",size: "100x70" %>
+                                 
+                             </td>
+                             
+                         </tr>
+                        
+                        <tr>
+                            <td style="width: 15%; font-size: 18px; padding-left: 90px; " align="right" >ONKAR INTERNATIONAL </td>
+                            <td style="width: 20%; font-size: 18px;" align="left">PVT LTD </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%; font-size: 14px; padding-left: 20px;" align="center" >Quotation Date</td>
+                            <td style="width: 15%; font-size: 14px;" align="left"><b><%= Time.now.to_s.split(' ')[0] %></b></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%; font-size: 14px; padding-left: 30px;" align="center"  >Agency Contact</td>
+                            <td style="width: 20%; font-size: 14px;" align="left"><%= all['agent_name'] %></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 10%; font-size: 14px; padding-left: 30px;" align="center" >Agency Number</td>
+                            <td style="width: 20%; font-size: 14px; " align="left"><%= all['agency_number'] %></td>                           
+                        </tr>
+                          
+                        </table>
+                    
+                       
+                </td>
+                    
+                       
+              <td> </td>
+           <% end %>
+    </table>    
+    
+    <table class='table' rules="rows"  frame="box" style="border-collapse: collapse; width:70%;">
+        <tr>
+        </tr>
+        
+            <tr style="background-color: whitesmoke;">
+              <th colspan="6"></th>
+              <th colspan="4">Fares in INR</th>
+            </tr>
+    
+            <tr style="background-color: whitesmoke;">
+              <th style="width: 3%;"><font color="#33a6cc">No</font></th>
+              <th colspan="2" style="width: 8%;" padding-left= "8px"><font color="#33a6cc">Airline</font></th>
+              <th style="width: 3%;"><font color="#33a6cc">Aircraft</font></th> 
+              <th style="width: 8%;"><font color="#ff1a1a">Departure</font></th>
+              <th style="width: 11%;"><font color="#33a6cc">Duration</font></th>
+              <th style="width: 8%;"><font color="#33a6cc">Arrival</font></th>
+              <th style="width: 10%;"><font color="#33a6cc">Retail</font></th>
+              <th style="width: 10%;"><font color="#33a6cc">Corporate</font></th>
+              <th style="width: 10%;"><font color="#33a6cc">Baggage Fare</font></th>
+            </tr>
+            
+          <%  @scheduled_info.each_with_index do |all,index| %>
+            <tr height="57" style="background-color: whitesmoke;">
+                <td align="center">          
+                  <%= index+1 %>                 
+                </td>
+              <td>
+                 <% al_names = {"AR"=>"Aerolineas Argentinas","G8"=>"GoAir", "6E"=> "Indigo","AI" => "Air India", "9W" => "Jet Airways","IX"=>"Air India Express" ,"SG" =>"SpiceJet","I5" =>"AirAsia India","UK" =>"Vistara","BA" => "British Airways"} %>
+                  
+                <table border="0" style="border-collapse: collapse; width:100%;">
+                <tr>
+                    <tr align="right"><td><%= image_tag "https://res.cloudinary.com/wego/w_30,h_27,f_auto,fl_lossy,q_80/v20180522/flights/airlines_square/#{all['airline']}.png" %></td></tr>
+                    
+                </tr>
+                </table>
+              </td>
+              <td><ub id="al" style="font-size: 14px;" align="center" ><div class="a"><%= al_names["#{all['airline']}"] %></ub><br><ub id="al" style="font-size: 12px; " align="center"><%= "#{all['airline']}   #{all['flt_num']}" %></ub></div></td>
+              <td align="center"><%= all['aircraft']%></td>
+              <td>
+                <table border="0" style="border-collapse: collapse; width:100%; font-size: 20px;" cellpadding="1">
+                <tr>
+                    <tr align="center"><td><strong><%= all['dept_time']%></strong></td></tr>
+                    <tr align="center"><td style="font-size: 12px;"><%= all['dept_station']%></td></tr>
+                </tr> 
+              </table>
+              </td>
+              <td>
+                <table border="0" style="border-collapse: collapse; width:100%; "cellpadding="1">
+                  <tr>
+                      <tr align="center"><td><%= all['duration']%></td></tr>
+                      <%  if all['stops'] == 0 
+                      all['stops'] = "Non Stop"
+                      else 
+                      all['stops']= all['stops'].to_s + " Stop(s)"
+                        #all['stops']= all['stops'].to_s + " Stop(s) at #{all['via_station']}"
+                      end %>
+                      <tr align="center"><td style="font-size: 12px;"><%=  all['stops'] %></td></tr>
+                  </tr>  
+                </table>
+              </td>
+              <td>
+                <table border="0" style="border-collapse: collapse; width:100%; " cellpadding="1">
+                <tr>
+                    <tr align="center"><td style="font-size: 20px;"><strong><%= all['arr_time']%></strong></td></tr>
+                    <tr align="center"><td style="font-size: 12px;"><%=  "#{all['arr_station']}    #{all['arr_terminal']}"%></td></tr>
+                </tr>
+                </table>
+              </td>
+              <td>
+                <table border="0" style="border-collapse: collapse; width:100%; word-break:break-all;" cellpadding="1"  >
+                  <tr>
+                      <% if all['retail_amt'] != nil %>
+                  <tr align="center"><td style="font-size: 18px;"><%= all['retail_amt']%></td></tr>
+                    <tr align="center"><td style="font-size: 12px;"><font color="#ff1a1a"><%= all['retail_type']%></font></td></tr>
+                <% else %>
+                <tr align="center"><td style="font-size: 12px;">NA</td></tr>
+                <% end %> 
+                </tr>
+                 
+                </table>
+              </td>
+              <td>
+                <table border="0" style="border-collapse: collapse; width:100%; word-break:break-all;"cellpadding="1">
+                <tr>
+                    <% if all['corp_amt'] != nil %>
+                <tr align="center"><td style="font-size: 18px;"><%= all['corp_amt']%></td></tr>
+                    <tr align="center"><td style="font-size: 12px;"><font color="#2d862d"><%= all['corp_type']%></font></td></tr>
+                <% else %>
+                <tr align="center"><td style="font-size: 12px;">NA</td></tr>
+                <% end %>
+                </tr>
+                </table>
+              </td>
+              <td>
+                <table border="0" style="border-collapse: collapse; width:100%; word-break:break-all;" cellpadding="1">
+                <tr>
+                <% if all['baggage_amt'] != nil %>
+                <tr align="center"><td style="font-size: 18px;"><%= all['baggage_amt'] %></td></tr>
+                <tr align="center"><td style="font-size: 12px;"><font color="#2d862d"><%= all['baggage_type']%></font></td></tr>
+                <% else %>
+                <tr align="center"><td style="font-size: 12px;">NA</td></tr>
+                <% end %>
+                </tr>   
+                </table>
+              </td>
+           </tr>
+           <% end %>
+             </table>
+    
+</div>
